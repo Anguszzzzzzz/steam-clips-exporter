@@ -11,7 +11,6 @@ This script runs continuously to watch the specified Steam Game Recording Clips 
 
 #### Important Notes
 
-* The script needs to use some memory resources to process the clip. If your clips are large (e.g. 10+ minutes, or using very high quality encoding), it may take up several GBs of memory. The memory needed is approximately the size of your clips. Make sure to run tests before you deploy to production.
 * Make sure that the user you're running the script with has proper access to the watch path and output directory.
 * The script checks for existing clip files in the output path. If the clip to be generated already exists in the output path, it will not overwrite the existing file.
 * The script uses a data file in the "data" directory alongside the script to keep track of processed clips. If you want to clear this list and start over, delete the `processed_clips.txt` file.
