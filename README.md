@@ -3,7 +3,7 @@
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-orange.svg)](https://github.com/anguszzzzzzz/steam-clips-exporter)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.txt)
 
-A Bash script to export clips generated from Steam Game Recording service into individual MP4 files.
+A Bash script that monitors new and existing Steam Game Recording Clips, and automatically exports clips into individual MP4 files.
 
 ## Description
 
@@ -12,9 +12,9 @@ This script runs continuously to watch the specified Steam Game Recording Clips 
 #### Important Notes
 
 * Make sure that the user you're running the script with has proper access to the watch path and output directory.
-* The script checks for existing clip files in the output path. If the clip to be generated already exists in the output path, it will not overwrite the existing file.
+* The script checks for existing clip files in the output path. If the clip to be generated already exists in the output path, the existing file will NOT be overwritten.
 * The script uses a data file in the "data" directory alongside the script to keep track of processed clips. If you want to clear this list and start over, delete the `processed_clips.txt` file.
-* Output files are named with the game title followed by the timestamp of the clip. For example: "<game-title> 2023-10-07 14-56-38.mp4".
+* Output files are named with the game title followed by the timestamp of the clip. For example: `<game-title> 2023-10-07 14-56-38.mp4`.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ You can test this script by running `./steam-clips-exporter.sh --watch-path "/pa
 
 To run this script as a systemd service, follow these steps:
 
-1. Create a new file in `/etc/systemd/system/` called `steam-clips-exporter.service`. Add the following contents:
+1. Create a new file in `/etc/systemd/system/` called `steam-clips-exporter.service`. Add the following contents in your favourite text editor:
 ```bash
 [Unit]
 Description=Steam Clips Exporter
@@ -57,17 +57,18 @@ WorkingDirectory=/<path-to-your-script-location>
 [Install]
 WantedBy=multi-user.target
 ```
-Replace `<path-to-your-script-location>` with the actual path to your script.
-Replace `<your-username>` with the actual username of the user running this script.
-Save the file.
 
-2. Reload systemd daemon to pick up changes: `sudo systemctl daemon-reload`
+2. Replace: `<your-steam-recording-directory>`, `<your-output-directory>`, and `<path-to-your-script-location>` with the appropriate paths on your system.
+Replace `<your-username>` with the username of the user who will be running this script.
+Save the file and exit the editor.
 
-3. Start and enable the service: `sudo systemctl start steam-clips-exporter.service` and `sudo systemctl enable steam-clips-exporter.service`
+3. Reload systemd daemon to pick up changes: `sudo systemctl daemon-reload`
 
-4. You can check the status of your service: `sudo systemctl status steam-clips-exporter.service` or view the logs of your service: `sudo journalctl -u steam-clips-exporter.service`
+4. Start the service: `sudo systemctl start steam-clips-exporter.service`
 
-5. Enable your service to start automatically on boot: `sudo systemctl enable steam-clips-exporter.service`
+5. Check the status of your service and confirm that it is running successfully: `sudo systemctl status steam-clips-exporter.service`, or view the logs of your service: `sudo journalctl -u steam-clips-exporter.service`
+
+6. If everything works as expected, enable your service to start automatically on boot: `sudo systemctl enable steam-clips-exporter.service`
 
 ## Contributing
 
